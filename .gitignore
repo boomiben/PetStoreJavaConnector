@@ -28,4 +28,4 @@ replay_pid*
 .gitattributes
 .DS_Store
 .vscode/
-connector-petstore/target/
+target/
