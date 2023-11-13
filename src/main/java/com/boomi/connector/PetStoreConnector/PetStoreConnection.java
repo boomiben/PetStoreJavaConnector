@@ -22,7 +22,7 @@ import com.boomi.connector.util.BaseConnection;
 
 public class PetStoreConnection extends BaseConnection
 {
-    private static final String BASE_URL_FIELD = "https://petstore3.swagger.io/api/v3";
+    private static final String BASE_URL_FIELD = "url";
     // private static final String USERNAME_FIELD = "username";
     // private static final String PASSWORD_FIELD = "password";
 

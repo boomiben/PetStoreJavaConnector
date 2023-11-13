@@ -35,13 +35,14 @@ public class PetStoreBrowser extends BaseBrowser
         //String requestUrl = "http://www.example.com/service/type";
         // ... Make GET request to requestUrl ...
         // ... parse results into list ...
-        List<String> returnedTypeNames = Arrays.asList(new String[]{"pet", "store"});
+        List<String> returnedTypeNames = Arrays.asList(new String[]{"pet"});
 
         // process returned list of type names
         ObjectTypes types = new ObjectTypes();
         for(String typeName : returnedTypeNames) {
             ObjectType type = new ObjectType();
             type.setId(typeName);
+            type.setLabel(typeName);
             types.getTypes().add(type);
         }
         return types;

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenericConnectorDescriptor>
+    <field id="url" label="URL" type="string">
+        <helpText>The base URL to execute against</helpText>
+    </field>
     <operation types="GET" customTypeId="Retrieve"/>
 </GenericConnectorDescriptor>
