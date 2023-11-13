@@ -17,23 +17,23 @@ public class PetStoreConnector extends BaseConnector
         return new PetStoreBrowser(createConnection(context));
     }
 
-    @Override
-    protected Operation createGetOperation(OperationContext context)
-    {
-        return new PetStoreGetOperation(createConnection(context));
-    }
+    // @Override
+    // protected Operation createGetOperation(OperationContext context)
+    // {
+    //     return new PetStoreGetOperation(createConnection(context));
+    // }
 
-    @Override
-    protected Operation createUpdateOperation(OperationContext context)
-    {
-        return new PetStoreUpdateOperation(createConnection(context));
-    }
+    // @Override
+    // protected Operation createUpdateOperation(OperationContext context)
+    // {
+    //     return new PetStoreUpdateOperation(createConnection(context));
+    // }
 
-    @Override
-    protected Operation createCreateOperation(OperationContext context)
-    {
-        return new PetStoreCreateOperation(createConnection(context));
-    }
+    // @Override
+    // protected Operation createCreateOperation(OperationContext context)
+    // {
+    //     return new PetStoreCreateOperation(createConnection(context));
+    // }
  
      private PetStoreConnection createConnection(BrowseContext context) 
      {
