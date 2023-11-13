@@ -27,4 +27,4 @@ replay_pid*
 #Ignore .gitattributes
 .gitattributes
 .DS_Store
-.vscode
+.vscode/
