@@ -20,6 +20,8 @@ Experimentation of building a custom connector for Boomi Integration using JAVA
 
 [Demo Connector Build Video - Boomi](https://players.brightcove.net/6261520393001/hM0svWhBB_default/index.html?videoId=6274648564001)
 
+[Boomi SDK Javadocs](https://boomisdkjavadoc.s3.amazonaws.com/javadoc/2.16.0/index.html)
+
 [Best practices for connector development](https://help.boomi.com/docs/atomsphere/integration/connectors/int-custom_connector_design_considerations_and_best_practices_99466f21-3ae0-44b0-95ba-810140bf7b0f/)
 
 
