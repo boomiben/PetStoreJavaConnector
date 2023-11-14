@@ -32,10 +32,10 @@ public class PetStoreConnector extends BaseConnector
     //     return new PetStoreUpdateOperation(createConnection(context));
     // }
 
-    // @Override
-    // protected Operation createCreateOperation(OperationContext context)
-    // {
-    //     return new PetStoreCreateOperation(createConnection(context));
-    // }
+    @Override
+    protected Operation createCreateOperation(OperationContext context)
+    {
+        return new PetStoreCreateOperation(createConnection(context));
+    }
  
 }

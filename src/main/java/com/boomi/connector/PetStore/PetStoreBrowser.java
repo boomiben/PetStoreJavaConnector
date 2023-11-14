@@ -22,6 +22,7 @@ import com.boomi.util.StreamUtil;
 public class PetStoreBrowser extends BaseBrowser
 {
     private static final String SCHEMA_PET = "/schema-pet.json";
+    private static final String SCHEMA_STORE_ORDER = "/schema-store-order.json";
     private static final String UTF8 = "UTF-8";
 
     public PetStoreBrowser(PetStoreConnection conn)
@@ -35,7 +36,7 @@ public class PetStoreBrowser extends BaseBrowser
         //String requestUrl = "http://www.example.com/service/type";
         // ... Make GET request to requestUrl ...
         // ... parse results into list ...
-        List<String> returnedTypeNames = Arrays.asList(new String[]{"pet"});
+        List<String> returnedTypeNames = Arrays.asList(new String[]{"pet", "store/order"});
 
         // process returned list of type names
         ObjectTypes types = new ObjectTypes();
@@ -72,7 +73,7 @@ public class PetStoreBrowser extends BaseBrowser
                         new ObjectDefinition()
                                 .withInputType(ContentType.NONE)
                                 .withOutputType(ContentType.JSON)
-                                .withJsonSchema(getJsonSchema())
+                                .withJsonSchema(getJsonSchema(objectTypeId))
                                 .withElementName(""));
                     
                 break;
@@ -96,9 +97,20 @@ public class PetStoreBrowser extends BaseBrowser
         return definitions;
     }
 
-    private static String getJsonSchema() {
+    private static String getJsonSchema(String objectTypeId) {
         String schema;
-        InputStream is = ClassUtil.getResourceAsStream(SCHEMA_PET);
+        InputStream is = null;
+        switch (objectTypeId) {
+            case "pet":
+                is = ClassUtil.getResourceAsStream(SCHEMA_PET);
+                break;
+            case "store/order":
+                is = ClassUtil.getResourceAsStream(SCHEMA_STORE_ORDER);
+                break;
+            default:
+                break;
+        }
+         
         try {
             schema = StreamUtil.toString(is, Charset.forName(UTF8));
         } catch (IOException ex) {
