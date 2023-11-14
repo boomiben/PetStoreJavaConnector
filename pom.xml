@@ -23,9 +23,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.assembly.plugin.version>2.6</maven.assembly.plugin.version> -->
         <!-- Specify what boomi SDK version we want -->
-        <boomi.sdk.version>RELEASE</boomi.sdk.version>
+        <boomi.sdk.version>2.16.0</boomi.sdk.version>
         <!-- Boomi Utilities for ease of development -->
-        <boomi.util.version>RELEASE</boomi.util.version>
+        <boomi.util.version>2.3.12</boomi.util.version>
     </properties>
 
     <dependencyManagement>
