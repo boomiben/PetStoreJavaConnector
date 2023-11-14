@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenericConnector sdkApiVersion="2.16.0">
-    <connectorClassName>com.boomi.connector.PetStoreConnector.PetStoreConnector</connectorClassName>
+    <connectorClassName>com.boomi.connector.PetStore.PetStoreConnector</connectorClassName>
 </GenericConnector>

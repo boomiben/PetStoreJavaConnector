@@ -1,6 +1,6 @@
-package com.boomi.connector.PetStoreConnector;
+package com.boomi.connector.PetStore;
 
-import com.boomi.connector.PetStoreConnector.operations.GetOperation;
+import com.boomi.connector.PetStore.operations.GetOperation;
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.api.Browser;
 import com.boomi.connector.api.Operation;

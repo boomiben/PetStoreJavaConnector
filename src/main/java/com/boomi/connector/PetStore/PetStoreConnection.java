@@ -1,4 +1,4 @@
-package com.boomi.connector.PetStoreConnector;
+package com.boomi.connector.PetStore;
 
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -7,7 +7,7 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.boomi.connector.PetStoreConnector.client.RESTClient;
+import com.boomi.connector.PetStore.client.RESTClient;
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.api.ConnectorContext;
 import com.boomi.connector.util.BaseConnection;

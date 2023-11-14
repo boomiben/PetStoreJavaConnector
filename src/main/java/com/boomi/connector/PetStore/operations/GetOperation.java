@@ -1,7 +1,7 @@
-package com.boomi.connector.PetStoreConnector.operations;
+package com.boomi.connector.PetStore.operations;
 
-import com.boomi.connector.PetStoreConnector.PetStoreConnection;
-import com.boomi.connector.PetStoreConnector.client.RESTClient;
+import com.boomi.connector.PetStore.PetStoreConnection;
+import com.boomi.connector.PetStore.client.RESTClient;
 import com.boomi.connector.api.GetRequest;
 import com.boomi.connector.api.ObjectIdData;
 import com.boomi.connector.api.OperationResponse;

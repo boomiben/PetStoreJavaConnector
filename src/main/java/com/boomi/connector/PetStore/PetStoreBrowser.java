@@ -1,4 +1,4 @@
-package com.boomi.connector.PetStoreConnector;
+package com.boomi.connector.PetStore;
 
 import java.io.IOException;
 import java.io.InputStream;

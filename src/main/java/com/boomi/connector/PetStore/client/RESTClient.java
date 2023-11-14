@@ -1,4 +1,4 @@
-package com.boomi.connector.PetStoreConnector.client;
+package com.boomi.connector.PetStore.client;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
