@@ -19,10 +19,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
+        <!-- <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.assembly.plugin.version>2.6</maven.assembly.plugin.version>
-        <connector.sdk.version>RELEASE</connector.sdk.version>
+        <maven.assembly.plugin.version>2.6</maven.assembly.plugin.version> -->
+        <!-- Specify what boomi SDK version we want -->
+        <boomi.sdk.version>RELEASE</boomi.sdk.version>
+        <!-- Boomi Utilities for ease of development -->
+        <boomi.util.version>RELEASE</boomi.util.version>
     </properties>
 
     <dependencyManagement>
@@ -30,29 +33,29 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <dependency>
                 <groupId>com.boomi.connsdk</groupId>
                 <artifactId>connector-sdk-api</artifactId>
-                <version>${connector.sdk.version}</version>
+                <version>${boomi.sdk.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.boomi.connsdk</groupId>
                 <artifactId>connector-sdk-util</artifactId>
-                <version>${connector.sdk.version}</version>
+                <version>${boomi.sdk.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.boomi.connsdk</groupId>
                 <artifactId>connector-sdk-ws</artifactId>
-                <version>${connector.sdk.version}</version>
+                <version>${boomi.sdk.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.boomi.connsdk</groupId>
                 <artifactId>connector-sdk-test-util</artifactId>
-                <version>${connector.sdk.version}</version>
+                <version>${boomi.sdk.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.boomi.util</groupId>
                 <artifactId>boomi-util</artifactId>
-                <version>${connector.sdk.version}</version>
+                <version>${boomi.util.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
@@ -80,7 +83,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven.assembly.plugin.version}</version>
+                <!-- <version>${maven.assembly.plugin.version}</version> -->
                 <configuration combine.self="override">
                     <descriptors>
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
