@@ -8,7 +8,7 @@ Experimentation of building a custom connector for Boomi Integration using JAVA
 
 ### Sample Requests
 
-- GET https://petstore3.swagger.io/api/v3/pet/202311031
+- GET https://petstore3.swagger.io/api/v3/pet/9223372016900089561
 
 ---
 
