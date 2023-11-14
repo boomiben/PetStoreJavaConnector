@@ -51,7 +51,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <dependency>
                 <groupId>com.boomi.util</groupId>
                 <artifactId>boomi-util</artifactId>
-                <version>RELEASE</version>
+                <version>${connector.sdk.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
