@@ -70,6 +70,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-test-util</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- Third party dependency for Http transport. You can use whatever you want -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
