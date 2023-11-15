@@ -2,6 +2,7 @@ package com.boomi.connector.PetStore.operations;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -51,6 +52,8 @@ public class CreateOperation extends BaseUpdateOperation {
                                                                 .setHeader("Accept", "application/json")
                                                                 .setHeader("Content-type", "application/json")
                                                                 .build();
+
+                    objectData.getLogger().log(Level.INFO, "[POST] " + uri);
 
                     client = getConnection().getRESTClient();
                     response = client.executeRequest(httpRequest);
