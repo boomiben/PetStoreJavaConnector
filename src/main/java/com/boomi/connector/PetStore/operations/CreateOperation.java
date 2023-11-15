@@ -48,6 +48,8 @@ public class CreateOperation extends BaseUpdateOperation {
                                                                 .setEntity(entity)
                                                                 // TODO: removing these setHeader() statements causes a 404 Bad Request error -- but should this be hardcoded here?
                                                                 // Idea: get Content Type from somewhere else?
+                                                                // See "operation properties" referenced: https://bitbucket.org/officialboomi/swagger-openapi-framework-and-connectors/src/master/src/main/java/com/boomi/swaggerframework/swaggeroperations/SwaggerExecuteOperation.java
+                                                                //Map<String,String> headers = this.getHeaderParameters(opProps, input.getDynamicOperationProperties());
                                                                 .setHeader("Accept", "application/json")
                                                                 .setHeader("Content-type", "application/json")
                                                                 .build();
