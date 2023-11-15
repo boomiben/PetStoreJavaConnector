@@ -1,18 +1,12 @@
 package com.boomi.connector.PetStore.operations;
 
+import java.io.IOException;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.HttpEntityWrapper;
 import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 
 import com.boomi.connector.PetStore.PetStoreConnection;
 import com.boomi.connector.PetStore.client.RESTClient;
@@ -53,6 +47,7 @@ public class CreateOperation extends BaseUpdateOperation {
                                                                 .setUri(uri)
                                                                 .setEntity(entity)
                                                                 // TODO: removing these setHeader() statements causes a 404 Bad Request error -- but should this be hardcoded here?
+                                                                // Idea: get Content Type from somewhere else?
                                                                 .setHeader("Accept", "application/json")
                                                                 .setHeader("Content-type", "application/json")
                                                                 .build();
@@ -71,7 +66,8 @@ public class CreateOperation extends BaseUpdateOperation {
                                 String.valueOf(response.getStatusLine().getStatusCode()));
                     }
 
-                } catch (Exception e) {
+                } 
+                catch (Exception e) {
                     ResponseUtil.addExceptionFailure(operationResponse, objectData, e);
                 } finally {
                     IOUtil.closeQuietly(response, client);

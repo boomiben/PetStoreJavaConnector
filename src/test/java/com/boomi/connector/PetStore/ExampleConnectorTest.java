@@ -65,8 +65,8 @@ public class ExampleConnectorTest {
 		
         //Set simulated payload for CREATE
 		String payload = "{\n" + 
-				"  \"id\": 9873598346,\n" + 
-				"  \"name\": \"JDoggie3\",\n" + 
+				"  \"id\": 9873598346888,\n" + 
+				"  \"name\": \"JDoggie88\",\n" + 
 				"  \"status\": \"available\"\n" + 
 				"}";
 

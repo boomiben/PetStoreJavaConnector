@@ -66,30 +66,23 @@ public class PetStoreBrowser extends BaseBrowser
 
         ObjectDefinitions definitions = new ObjectDefinitions();
         switch (getContext().getOperationType()) {
-
             case GET:
                 //Output has incoming data, no outgoing data
                 definitions.getDefinitions().add(
-                        new ObjectDefinition()
-                                .withInputType(ContentType.NONE)
-                                .withOutputType(ContentType.JSON)
-                                .withJsonSchema(getJsonSchema(objectTypeId))
-                                .withElementName(""));
-                    
+                    new ObjectDefinition()
+                        .withInputType(ContentType.NONE)
+                        .withOutputType(ContentType.JSON)
+                        .withJsonSchema(getJsonSchema(objectTypeId))
+                        .withElementName(""));
                 break;
-            // output and input
             case CREATE:
-                
-                ObjectDefinition inputDef = new ObjectDefinition()
+                // output and input
+                definitions.getDefinitions().add(
+                    new ObjectDefinition()
                         .withInputType( ContentType.JSON )
                         .withOutputType( ContentType.JSON)
                         .withJsonSchema(getJsonSchema(objectTypeId))
-                        .withElementName("");
-                definitions.getDefinitions().add(inputDef);
-
-                // definitions.getDefinitions().add(new ObjectDefinition()
-                //         .withInputType(ContentType.NONE)
-                //         .withOutputType(ContentType.NONE));
+                        .withElementName(""));
                 break;
             default:
                 throw new UnsupportedOperationException();
