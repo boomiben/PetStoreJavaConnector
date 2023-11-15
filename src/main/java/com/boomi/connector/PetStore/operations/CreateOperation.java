@@ -2,13 +2,20 @@ package com.boomi.connector.PetStore.operations;
 
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.HttpEntityWrapper;
 import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import com.boomi.connector.PetStore.PetStoreConnection;
+import com.boomi.connector.PetStore.client.RESTClient;
 import com.boomi.connector.api.ObjectData;
 import com.boomi.connector.api.OperationResponse;
 import com.boomi.connector.api.PayloadUtil;
@@ -28,7 +35,8 @@ public class CreateOperation extends BaseUpdateOperation {
     @Override
     protected void executeUpdate(UpdateRequest request, OperationResponse operationResponse) {
         String uri = getConnection().getBaseURL() + "/" + (getContext()).getObjectTypeId();
-        HttpPost httpPost = new HttpPost(uri);
+        CloseableHttpResponse response = null;
+        RESTClient client = null;
 
         for (List<ObjectData> requestDataBatch : RequestUtil.pageIterable(request, MAX_BATCH_SIZE,
                 getContext().getConfig())) {
@@ -39,18 +47,18 @@ public class CreateOperation extends BaseUpdateOperation {
             
             for (ObjectData objectData : requestDataBatch) {
                 try {
-                    // TODO: switch over to using RESTClient instead of CloseableHttpClient?
-
-                    //StringEntity entity = new StringEntity(payload);
+                    // Pass payload into request
                     InputStreamEntity entity = new InputStreamEntity(objectData.getData());
-                    httpPost.setEntity(entity);
-                    
-                    // TODO: removing these setHeader() statements causes a 404 Bad Request error -- but should this be hardcoded here?
-                    httpPost.setHeader("Accept", "application/json");
-                    httpPost.setHeader("Content-type", "application/json");
+                    HttpUriRequest httpRequest = RequestBuilder.create("POST")
+                                                                .setUri(uri)
+                                                                .setEntity(entity)
+                                                                // TODO: removing these setHeader() statements causes a 404 Bad Request error -- but should this be hardcoded here?
+                                                                .setHeader("Accept", "application/json")
+                                                                .setHeader("Content-type", "application/json")
+                                                                .build();
 
-                    CloseableHttpClient client = HttpClients.createDefault();
-                    CloseableHttpResponse response = (CloseableHttpResponse) client.execute(httpPost);
+                    client = getConnection().getRESTClient();
+                    response = client.executeRequest(httpRequest);
 
                     if (response.getEntity().getContentLength() > 0) {
                         // Object found. Display Object
@@ -66,7 +74,7 @@ public class CreateOperation extends BaseUpdateOperation {
                 } catch (Exception e) {
                     ResponseUtil.addExceptionFailure(operationResponse, objectData, e);
                 } finally {
-                    //IOUtil.closeQuietly(response, client);
+                    IOUtil.closeQuietly(response, client);
                 }
             }
         }
