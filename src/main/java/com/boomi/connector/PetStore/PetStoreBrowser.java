@@ -77,20 +77,20 @@ public class PetStoreBrowser extends BaseBrowser
                                 .withElementName(""));
                     
                 break;
-            // // output and input
-            // case EXECUTE:
+            // output and input
+            case CREATE:
                 
-            //     ObjectDefinition inputDef = new ObjectDefinition()
-            //             .withInputType( ContentType.JSON )
-            //             .withOutputType( ContentType.NONE)
-            //             .withJsonSchema(getJsonSchema())
-            //             .withElementName("");
-            //     definitions.getDefinitions().add(inputDef);
+                ObjectDefinition inputDef = new ObjectDefinition()
+                        .withInputType( ContentType.JSON )
+                        .withOutputType( ContentType.JSON)
+                        .withJsonSchema(getJsonSchema(objectTypeId))
+                        .withElementName("");
+                definitions.getDefinitions().add(inputDef);
 
-            //     definitions.getDefinitions().add(new ObjectDefinition()
-            //             .withInputType(ContentType.NONE)
-            //             .withOutputType(ContentType.NONE));
-            //     break;
+                // definitions.getDefinitions().add(new ObjectDefinition()
+                //         .withInputType(ContentType.NONE)
+                //         .withOutputType(ContentType.NONE));
+                break;
             default:
                 throw new UnsupportedOperationException();
         }
