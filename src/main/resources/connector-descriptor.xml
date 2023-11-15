@@ -5,4 +5,5 @@
     </field>
     <operation types="GET" customTypeId="Retrieve"/>
     <operation types="CREATE" customTypeId="Create"/>
+    <operation types="DELETE" customTypeId="Delete"/>
 </GenericConnectorDescriptor>
