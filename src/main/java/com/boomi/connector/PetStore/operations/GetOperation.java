@@ -10,6 +10,8 @@ import com.boomi.connector.api.ResponseUtil;
 import com.boomi.connector.util.BaseGetOperation;
 import com.boomi.util.IOUtil;
 
+import java.util.logging.Level;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
@@ -35,6 +37,9 @@ public class GetOperation extends BaseGetOperation {
             String uri = getConnection().getBaseURL() + "/" + (getContext()).getObjectTypeId() + "/" + objectId
                     .getObjectId();
             HttpUriRequest httpRequest = RequestBuilder.create("GET").setUri(uri).build();
+
+            request.getObjectId().getLogger().log(Level.INFO, "[GET] " + uri);
+
             client = getConnection().getRESTClient();
             response = client.executeRequest(httpRequest);
             if (response.getEntity().getContentLength() > 0) {
