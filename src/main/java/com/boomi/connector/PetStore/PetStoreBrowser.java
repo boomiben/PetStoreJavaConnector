@@ -22,6 +22,7 @@ import com.boomi.util.StreamUtil;
 public class PetStoreBrowser extends BaseBrowser
 {
     private static final String SCHEMA_PET = "/schema-pet.json";
+    private static final String SCHEMA_STORE_ORDER = "/schema-store-order.json";
     private static final String UTF8 = "UTF-8";
 
     public PetStoreBrowser(PetStoreConnection conn)
@@ -35,7 +36,7 @@ public class PetStoreBrowser extends BaseBrowser
         //String requestUrl = "http://www.example.com/service/type";
         // ... Make GET request to requestUrl ...
         // ... parse results into list ...
-        List<String> returnedTypeNames = Arrays.asList(new String[]{"pet"});
+        List<String> returnedTypeNames = Arrays.asList(new String[]{"pet", "store/order"});
 
         // process returned list of type names
         ObjectTypes types = new ObjectTypes();
@@ -65,40 +66,44 @@ public class PetStoreBrowser extends BaseBrowser
 
         ObjectDefinitions definitions = new ObjectDefinitions();
         switch (getContext().getOperationType()) {
-
             case GET:
                 //Output has incoming data, no outgoing data
                 definitions.getDefinitions().add(
-                        new ObjectDefinition()
-                                .withInputType(ContentType.NONE)
-                                .withOutputType(ContentType.JSON)
-                                .withJsonSchema(getJsonSchema())
-                                .withElementName(""));
-                    
+                    new ObjectDefinition()
+                        .withInputType(ContentType.NONE)
+                        .withOutputType(ContentType.JSON)
+                        .withJsonSchema(getJsonSchema(objectTypeId))
+                        .withElementName(""));
                 break;
-            // // output and input
-            // case EXECUTE:
-                
-            //     ObjectDefinition inputDef = new ObjectDefinition()
-            //             .withInputType( ContentType.JSON )
-            //             .withOutputType( ContentType.NONE)
-            //             .withJsonSchema(getJsonSchema())
-            //             .withElementName("");
-            //     definitions.getDefinitions().add(inputDef);
-
-            //     definitions.getDefinitions().add(new ObjectDefinition()
-            //             .withInputType(ContentType.NONE)
-            //             .withOutputType(ContentType.NONE));
-            //     break;
+            case CREATE:
+                // output and input
+                definitions.getDefinitions().add(
+                    new ObjectDefinition()
+                        .withInputType( ContentType.JSON )
+                        .withOutputType( ContentType.JSON)
+                        .withJsonSchema(getJsonSchema(objectTypeId))
+                        .withElementName(""));
+                break;
             default:
                 throw new UnsupportedOperationException();
         }
         return definitions;
     }
 
-    private static String getJsonSchema() {
+    private static String getJsonSchema(String objectTypeId) {
         String schema;
-        InputStream is = ClassUtil.getResourceAsStream(SCHEMA_PET);
+        InputStream is = null;
+        switch (objectTypeId) {
+            case "pet":
+                is = ClassUtil.getResourceAsStream(SCHEMA_PET);
+                break;
+            case "store/order":
+                is = ClassUtil.getResourceAsStream(SCHEMA_STORE_ORDER);
+                break;
+            default:
+                break;
+        }
+         
         try {
             schema = StreamUtil.toString(is, Charset.forName(UTF8));
         } catch (IOException ex) {

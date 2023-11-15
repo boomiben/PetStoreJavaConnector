@@ -4,4 +4,5 @@
         <helpText>The base URL to execute against</helpText>
     </field>
     <operation types="GET" customTypeId="Retrieve"/>
+    <operation types="CREATE" customTypeId="Create"/>
 </GenericConnectorDescriptor>
