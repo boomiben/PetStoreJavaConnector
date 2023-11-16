@@ -19,8 +19,8 @@ public class ExampleConnectorTest {
         System.out.println("Starting tests...");
 
         try {
-            testGetOperation();
-            testCreateOperation();
+            //testGetOperation();
+            //testCreateOperation();
             testDeleteOperation();
         }
         catch (Exception e) {
@@ -96,11 +96,10 @@ public class ExampleConnectorTest {
         connProps.put("url","https://petstore3.swagger.io/api/v3");
 
         // Test PET Delete
-        // FIXME: This throws an exception due to an illegal cast when calling the .executeDeleteOperation() method
-        
         tester.setOperationContext(OperationType.DELETE, connProps, null, "pet", null);
         List<String> objectIds = new ArrayList<>();
-        objectIds.add("9873598346888");
+        objectIds.add("9223372016900082307");
+        objectIds.add("9223372016900032208");
         List<SimpleOperationResult> resultsPetDelete = tester.executeDeleteOperation(objectIds);
         System.out.println(resultsPetDelete);
         

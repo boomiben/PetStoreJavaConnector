@@ -32,8 +32,7 @@ public class CreateOperation extends BaseUpdateOperation {
         CloseableHttpResponse response = null;
         RESTClient client = null;
 
-        for (List<ObjectData> requestDataBatch : RequestUtil.pageIterable(request, MAX_BATCH_SIZE,
-                getContext().getConfig())) {
+        for (List<ObjectData> requestDataBatch : RequestUtil.pageIterable(request, MAX_BATCH_SIZE, getContext().getConfig())) {
             // Create the request for each item in the batch
             // handle new objects in batches of at most MAX_BATCH_SIZE
             // NOTE: "requestDataBatch" is a List/array of requests that can contain multiple documents UP TO MAX_BATCH_SIZE
