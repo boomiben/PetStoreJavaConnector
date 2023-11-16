@@ -31,32 +31,29 @@ public class DeleteOperation extends BaseDeleteOperation {
     }
     @Override
     protected void executeDelete(DeleteRequest request, OperationResponse operationResponse) {
-        //Fetch the object ID
-
-        // TODO: figure out how to get objectId from request
-        //ObjectData requestObject = (ObjectData)request;
-        ObjectIdData objectId = request.getObjectId();
+        //Fetch the ObjectIdData - slightly different than the ObjectId used in GET operation
+        ObjectIdData objectIdData = (ObjectIdData)request;
 
         CloseableHttpResponse response = null;
         RESTClient client = null;
         try {
             // Create the request            
-            String uri = getConnection().getBaseURL() + "/" + (getContext()).getObjectTypeId() + "/" + objectId.getObjectId();
+            String uri = getConnection().getBaseURL() + "/" + (getContext()).getObjectTypeId() + "/" + objectIdData.getObjectId();
             HttpUriRequest httpRequest = RequestBuilder.create("DELETE").setUri(uri).build();
             client = getConnection().getRESTClient();
             response = client.executeRequest(httpRequest);
             if (response.getEntity().getContentLength() > 0) {
                 // Object found. Display Object
-                ResponseUtil.addResultWithHttpStatus(operationResponse, objectId,
+                ResponseUtil.addResultWithHttpStatus(operationResponse, objectIdData,
                         response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase(),
                         PayloadUtil.toPayload(response.getEntity().getContent()));
             } else {
                 // Object not found. 
-                ResponseUtil.addEmptySuccess(operationResponse, objectId,
+                ResponseUtil.addEmptySuccess(operationResponse, objectIdData,
                         String.valueOf(response.getStatusLine().getStatusCode()));
             }
         } catch (Exception e) {
-            ResponseUtil.addExceptionFailure(operationResponse, objectId, e);
+            ResponseUtil.addExceptionFailure(operationResponse, objectIdData, e);
         } finally {
             IOUtil.closeQuietly(response, client);
         }

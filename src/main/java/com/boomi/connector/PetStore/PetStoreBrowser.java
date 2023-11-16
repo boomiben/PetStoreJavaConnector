@@ -79,7 +79,16 @@ public class PetStoreBrowser extends BaseBrowser
                 // output and input
                 definitions.getDefinitions().add(
                     new ObjectDefinition()
-                        .withInputType( ContentType.JSON )
+                        .withInputType(ContentType.JSON)
+                        .withOutputType(ContentType.JSON)
+                        .withJsonSchema(getJsonSchema(objectTypeId))
+                        .withElementName(""));
+                break;
+            case DELETE:
+                // Output only (similar to GET)
+                definitions.getDefinitions().add(
+                    new ObjectDefinition()
+                        .withInputType(ContentType.NONE)
                         .withOutputType( ContentType.JSON)
                         .withJsonSchema(getJsonSchema(objectTypeId))
                         .withElementName(""));

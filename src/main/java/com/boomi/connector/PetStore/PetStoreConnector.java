@@ -1,6 +1,7 @@
 package com.boomi.connector.PetStore;
 
 import com.boomi.connector.PetStore.operations.CreateOperation;
+import com.boomi.connector.PetStore.operations.DeleteOperation;
 import com.boomi.connector.PetStore.operations.GetOperation;
 import com.boomi.connector.api.BrowseContext;
 import com.boomi.connector.api.Browser;
