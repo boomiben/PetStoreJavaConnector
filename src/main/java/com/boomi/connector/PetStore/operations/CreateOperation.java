@@ -1,6 +1,7 @@
 package com.boomi.connector.PetStore.operations;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,6 +12,7 @@ import org.apache.http.entity.InputStreamEntity;
 import com.boomi.connector.PetStore.PetStoreConnection;
 import com.boomi.connector.PetStore.client.RESTClient;
 import com.boomi.connector.api.ObjectData;
+import com.boomi.connector.api.ObjectIdData;
 import com.boomi.connector.api.OperationResponse;
 import com.boomi.connector.api.PayloadUtil;
 import com.boomi.connector.api.RequestUtil;
@@ -32,48 +34,45 @@ public class CreateOperation extends BaseUpdateOperation {
         CloseableHttpResponse response = null;
         RESTClient client = null;
 
-        for (List<ObjectData> requestDataBatch : RequestUtil.pageIterable(request, MAX_BATCH_SIZE, getContext().getConfig())) {
-            // Create the request for each item in the batch
-            // handle new objects in batches of at most MAX_BATCH_SIZE
-            // NOTE: "requestDataBatch" is a List/array of requests that can contain multiple documents UP TO MAX_BATCH_SIZE
-            //  Therefore, we must iterate through requestDataBatch
-            
-            for (ObjectData objectData : requestDataBatch) {
-                try {
-                    // Pass payload into request
-                    InputStreamEntity entity = new InputStreamEntity(objectData.getData());
-                    HttpUriRequest httpRequest = RequestBuilder.create("POST")
-                                                                .setUri(uri)
-                                                                .setEntity(entity)
-                                                                // TODO: removing these setHeader() statements causes a 404 Bad Request error -- but should this be hardcoded here?
-                                                                // Idea: get Content Type from somewhere else?
-                                                                // See "operation properties" referenced: https://bitbucket.org/officialboomi/swagger-openapi-framework-and-connectors/src/master/src/main/java/com/boomi/swaggerframework/swaggeroperations/SwaggerExecuteOperation.java
-                                                                //Map<String,String> headers = this.getHeaderParameters(opProps, input.getDynamicOperationProperties());
-                                                                .setHeader("Accept", "application/json")
-                                                                .setHeader("Content-type", "application/json")
-                                                                .build();
+        Iterator<ObjectData> it = request.iterator();
+        while (it.hasNext()) {
+            ObjectData objectData = (ObjectData) it.next();
 
-                    client = getConnection().getRESTClient();
-                    response = client.executeRequest(httpRequest);
+            try {
+                // Pass payload into request
+                InputStreamEntity entity = new InputStreamEntity(objectData.getData());
+                HttpUriRequest httpRequest = RequestBuilder.create("POST")
+                                                            .setUri(uri)
+                                                            .setEntity(entity)
+                                                            // TODO: removing these setHeader() statements causes a 404 Bad Request error -- but should this be hardcoded here?
+                                                            // Idea: get Content Type from somewhere else?
+                                                            // See "operation properties" referenced: https://bitbucket.org/officialboomi/swagger-openapi-framework-and-connectors/src/master/src/main/java/com/boomi/swaggerframework/swaggeroperations/SwaggerExecuteOperation.java
+                                                            //Map<String,String> headers = this.getHeaderParameters(opProps, input.getDynamicOperationProperties());
+                                                            .setHeader("Accept", "application/json")
+                                                            .setHeader("Content-type", "application/json")
+                                                            .build();
 
-                    if (response.getEntity().getContentLength() > 0) {
-                        // Object found. Display Object
-                        ResponseUtil.addResultWithHttpStatus(operationResponse, objectData,
-                                response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase(),
-                                PayloadUtil.toPayload(response.getEntity().getContent()));
-                    } else {
-                        // Object not found.
-                        ResponseUtil.addEmptySuccess(operationResponse, objectData,
-                                String.valueOf(response.getStatusLine().getStatusCode()));
-                    }
+                client = getConnection().getRESTClient();
+                response = client.executeRequest(httpRequest);
 
-                } 
-                catch (Exception e) {
-                    ResponseUtil.addExceptionFailure(operationResponse, objectData, e);
-                } finally {
-                    IOUtil.closeQuietly(response, client);
+                if (response.getEntity().getContentLength() > 0) {
+                    // Object found. Display Object
+                    ResponseUtil.addResultWithHttpStatus(operationResponse, objectData,
+                            response.getStatusLine().getStatusCode(), response.getStatusLine().getReasonPhrase(),
+                            PayloadUtil.toPayload(response.getEntity().getContent()));
+                } else {
+                    // Object not found.
+                    ResponseUtil.addEmptySuccess(operationResponse, objectData,
+                            String.valueOf(response.getStatusLine().getStatusCode()));
                 }
+
+            } 
+            catch (Exception e) {
+                ResponseUtil.addExceptionFailure(operationResponse, objectData, e);
+            } finally {
+                IOUtil.closeQuietly(response, client);
             }
+
         }
     }
 
