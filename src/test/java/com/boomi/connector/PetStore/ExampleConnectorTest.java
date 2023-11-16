@@ -19,8 +19,9 @@ public class ExampleConnectorTest {
         System.out.println("Starting tests...");
 
         try {
-            testGetOperation();
-            testCreateOperation();
+            //testGetOperation();
+            //testCreateOperation();
+            testDeleteOperation();
         }
         catch (Exception e) {
             System.out.println("EXCEPTION OCCURRED! ..." + e.toString());
@@ -83,6 +84,26 @@ public class ExampleConnectorTest {
 
         System.out.println("testCreateOperation(): done!");
 
+    }
+
+    public static void testDeleteOperation() throws Exception
+    {
+        PetStoreConnector connector = new PetStoreConnector();
+        ConnectorTester tester = new ConnectorTester(connector);
+
+        // setup the operation context for a Delete operation on an object with type "SomeType"
+        Map<String, Object> connProps = new HashMap<String,Object>();
+        connProps.put("url","https://petstore3.swagger.io/api/v3");
+
+        // Test PET Delete
+        tester.setOperationContext(OperationType.DELETE, connProps, null, "pet", null);
+        List<String> objectIds = new ArrayList<>();
+        objectIds.add("9223372016900082307");
+        objectIds.add("9223372016900032208");
+        List<SimpleOperationResult> resultsPetDelete = tester.executeDeleteOperation(objectIds);
+        System.out.println(resultsPetDelete);
+        
+        System.out.println("testDeleteOperation(): done!");
     }
 
 }
